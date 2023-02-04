@@ -18,12 +18,12 @@ def _extract_tags(html):
 
     for i in range(len(html)):
         if html[i] == start:
-            for e in range(1,len(html)-i-1):
+            for e in range(1,len(html)-i):
                 if html[i+e] == end:
                     result.append(html[i:i+e+1])
-                    break
                 elif html[i+e] == start:
                     break
+                
     return result
                  
 def validate_html(html):
@@ -40,7 +40,7 @@ def validate_html(html):
 
 
     for e in _extract_tags(html):
-        if stack != [] and stack[-1] == e:
+        if stack != [] and stack[-1] == (e[0:1] + e[2:]):
             stack.pop()
         else:
             stack.append(e)
@@ -48,8 +48,7 @@ def validate_html(html):
     if stack == []:
         return True
     else:
-        return False
-    
+        return False 
 
 
     # HINT:
@@ -57,5 +56,3 @@ def validate_html(html):
     # then process these html tags using the balanced parentheses algorithm from the class/book
     # the main difference between your code and the code from class will be that you will have to keep track of not just the 3 types of parentheses,
     # but arbitrary text located between the html tags
-print("validate html", validate_html('Python <strong>rocks</strong>!Python <Python <strong>rocks</strong>!strong>rocks</strong>!'))
-
