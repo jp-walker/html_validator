@@ -1,23 +1,5 @@
 #!/bin/python3
 
-
-def validate_html(html):
-    '''
-    This function performs a limited version of html validation by checking whether every opening tag has a corresponding closing tag.
-
-    >>> validate_html('<strong>example</strong>')
-    True
-    >>> validate_html('<strong>example')
-    False
-    '''
-
-    # HINT:
-    # use the _extract_tags function below to generate a list of html tags without any extra text;
-    # then process these html tags using the balanced parentheses algorithm from the class/book
-    # the main difference between your code and the code from class will be that you will have to keep track of not just the 3 types of parentheses,
-    # but arbitrary text located between the html tags
-
-
 def _extract_tags(html):
     '''
     This is a helper function for `validate_html`.
@@ -29,3 +11,51 @@ def _extract_tags(html):
     >>> _extract_tags('Python <strong>rocks</strong>!')
     ['<strong>', '</strong>']
     '''
+
+    result = []
+    start = "<"
+    end = ">"
+
+    for i in range(len(html)):
+        if html[i] == start:
+            for e in range(1,len(html)-i-1):
+                if html[i+e] == end:
+                    result.append(html[i:i+e+1])
+                    break
+                elif html[i+e] == start:
+                    break
+    return result
+                 
+def validate_html(html):
+    '''
+    This function performs a limited version of html validation by checking whether every opening tag has a corresponding closing tag.
+
+    >>> validate_html('<strong>example</strong>')
+    True
+    >>> validate_html('<strong>example')
+    False
+    '''
+    
+    stack = []
+
+
+    for e in _extract_tags(html):
+        if stack != [] and stack[-1] == e:
+            stack.pop()
+        else:
+            stack.append(e)
+    
+    if stack == []:
+        return True
+    else:
+        return False
+    
+
+
+    # HINT:
+    # use the _extract_tags function below to generate a list of html tags without any extra text;
+    # then process these html tags using the balanced parentheses algorithm from the class/book
+    # the main difference between your code and the code from class will be that you will have to keep track of not just the 3 types of parentheses,
+    # but arbitrary text located between the html tags
+print("validate html", validate_html('Python <strong>rocks</strong>!Python <Python <strong>rocks</strong>!strong>rocks</strong>!'))
+
