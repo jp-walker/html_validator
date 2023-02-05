@@ -29,7 +29,6 @@ def _extract_tags(html):
 
     return result
 
-print("extract tags", _extract_tags('this is a <strong< test'))
 
 def validate_html(html):
     '''
@@ -55,7 +54,6 @@ def validate_html(html):
     else:
         return False
 
-print("validate html", validate_html('this is a <strong< test'))
     # HINT:
     # use the _extract_tags function below to generate a list of html tags
     # without any extra text;then process these html tags using the balanced
