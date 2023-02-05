@@ -21,10 +21,10 @@ def _extract_tags(html):
 
     for i in range(len(html)):
         if html[i] == start:
-            for e in range(1, len(html)-i):
-                if html[i+e] == end:
-                    result.append(html[i:i+e+1])
-                elif html[i+e] == start:
+            for e in range(1, len(html) - i):
+                if html[i + e] == end:
+                    result.append(html[i:i + e + 1])
+                elif html[i + e] == start:
                     break
 
     return result
