@@ -47,7 +47,10 @@ def validate_html(html):
 
     stack = []
     just_tags = _extract_tags(html)
-
+    
+    if len(just_tags) == 0 or len(html) == 0:
+        return False
+    
     if just_tags[0] != html[:len(just_tags[0])]:
         return False
     elif just_tags[-1] != ("</" + html[- len(just_tags[-1]) + 2:]):
