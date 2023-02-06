@@ -24,6 +24,10 @@ def _extract_tags(html):
             for e in range(1, len(html) - i):
                 if html[i + e] == end:
                     result.append(html[i:i + e + 1])
+                    break
+                elif html[i + e] == " ":
+                    result.append(html[i:i + e] + end)
+                    break
                 elif html[i + e] == start:
                     break
 
@@ -43,6 +47,12 @@ def validate_html(html):
 
     stack = []
     just_tags = _extract_tags(html)
+
+    if just_tags[0] != html[:len(just_tags[0])]:
+        return False
+    elif just_tags[-1] != ("</" + html[- len(just_tags[-1]) + 2:]):
+        return False
+
     for e in just_tags:
         if stack != [] and stack[-1] == (e[0:1] + e[2:]):
             stack.pop()
