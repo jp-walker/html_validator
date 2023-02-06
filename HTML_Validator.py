@@ -47,7 +47,7 @@ def validate_html(html):
 
     stack = []
     just_tags = _extract_tags(html)
-   
+
     if len(just_tags) == 0 or len(html) == 0:
         return False
 
