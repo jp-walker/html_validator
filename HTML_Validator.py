@@ -48,25 +48,18 @@ def validate_html(html):
     stack = []
     just_tags = _extract_tags(html)
 
-    if len(just_tags) == 0 or len(html) == 0:
-        return False
-
-    if just_tags[0] != html[:len(just_tags[0])]:
-        return False
-    elif just_tags[-1] != ("</" + html[- len(just_tags[-1]) + 2:]):
-        return False
-
     for e in just_tags:
         if stack != [] and stack[-1] == (e[0:1] + e[2:]):
             stack.pop()
         else:
             stack.append(e)
 
-    if stack == [] and len(just_tags) > 0:
-        return True
-    else:
+    if stack != [] or ("<" in html and len(just_tags) == 0):
         return False
-
+    else:
+        return True
+print("validate",validate_html('<'))
+print("tags",_extract_tags('<'))
     # HINT:
     # use the _extract_tags function below to generate a list of html tags
     # without any extra text;then process these html tags using the balanced
