@@ -58,8 +58,7 @@ def validate_html(html):
         return False
     else:
         return True
-print("validate",validate_html('<'))
-print("tags",_extract_tags('<'))
+
     # HINT:
     # use the _extract_tags function below to generate a list of html tags
     # without any extra text;then process these html tags using the balanced
